@@ -12,7 +12,7 @@ module "vpc" {
 }
 
 module "security" {
-    source = "../modules/security"
+    source = "../modules/security-group"
 
     project_name = local.project_name
     vpc_id = module.vpc.vpc_id

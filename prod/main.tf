@@ -11,7 +11,6 @@ module "vpc" {
   az2                   = local.az2
 }
 
-/*
 module "security" {
     source = "../modules/security"
 
@@ -19,6 +18,7 @@ module "security" {
     vpc_id = module.vpc.vpc_id
 }
 
+/*
 module "ec2" {
     source = "../modules/ec2"
 

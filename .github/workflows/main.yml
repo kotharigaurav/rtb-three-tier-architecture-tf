@@ -59,6 +59,9 @@ jobs:
     environment: 
       name: ${{ github.event.inputs.environment }}
 
+    gh_environment:
+      name: ${{ github.event.inputs.environment }}
+
     env:
       TF_VAR_db_name: ${{ secrets.DB_NAME }}
       TF_VAR_db_username: ${{ secrets.DB_USERNAME }}

@@ -29,7 +29,6 @@ module "ec2" {
     key_name = local.key_name
 }
 
-/*
 module "alb" {
     source = "../modules/alb"
 
@@ -40,6 +39,7 @@ module "alb" {
     instance_ids = module.ec2.instance_ids
 }
 
+/*
 module "rds" {
     source = "../modules/rds"
 

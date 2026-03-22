@@ -39,7 +39,6 @@ module "alb" {
     instance_ids = module.ec2.instance_ids
 }
 
-/*
 module "rds" {
     source = "../modules/rds"
 
@@ -52,4 +51,3 @@ module "rds" {
     db_password = local.db_password
     rds_sg_id = module.security.rds_sg_id
 }
-*/

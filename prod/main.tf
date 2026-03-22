@@ -18,7 +18,6 @@ module "security" {
     vpc_id = module.vpc.vpc_id
 }
 
-/*
 module "ec2" {
     source = "../modules/ec2"
 
@@ -30,6 +29,7 @@ module "ec2" {
     key_name = local.key_name
 }
 
+/*
 module "alb" {
     source = "../modules/alb"
 

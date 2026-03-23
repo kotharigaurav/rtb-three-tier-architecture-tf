@@ -21,7 +21,7 @@ resource "aws_subnet" "public-1" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.project_name}-public-subnet-${count.index + 1}"
+    Name = "${var.project_name}-public-subnet-1"
   }
 }
 
@@ -59,13 +59,13 @@ resource "aws_route_table_association" "public-rt-2" {
   route_table_id = aws_route_table.public.id
 }
 
-resource "aws_subnet" "private" {
+resource "aws_subnet" "private-1" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.private_subnet_cidr_1
   availability_zone = var.az1
 
   tags = {
-    Name = "${var.project_name}-private-subnet-${count.index + 1}"
+    Name = "${var.project_name}-private-subnet-2"
   }
 }
 

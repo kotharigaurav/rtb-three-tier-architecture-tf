@@ -14,27 +14,30 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-resource "aws_subnet" "public-1" {
+resource "aws_subnet" "public" {
+  count                   = length(var.public_subnet_cidr)
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnet_cidr_1
-  availability_zone       = var.az1
+  # cidr_block              = var.public_subnet_cidr_1
+  cidr_block              = var.public_subnet_cidr[count.index]
+  availability_zone       = var.az[count.index]
+  # availability_zone       = var.az1
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.project_name}-public-subnet-1"
+    Name = "${var.project_name}-public-subnet-${count.index + 1}"
   }
 }
 
-resource "aws_subnet" "public-2" {
-  vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnet_cidr_2
-  availability_zone       = var.az2
-  map_public_ip_on_launch = true
+# resource "aws_subnet" "public-2" {
+#   vpc_id                  = aws_vpc.main.id
+#   cidr_block              = var.public_subnet_cidr_2
+#   availability_zone       = var.az2
+#   map_public_ip_on_launch = true
 
-  tags = {
-    Name = "${var.project_name}-public-subnet-2"
-  }
-}
+#   tags = {
+#     Name = "${var.project_name}-public-subnet-2"
+#   }
+# }
 
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
@@ -50,34 +53,39 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table_association" "public-rt-1" {
-  subnet_id      = aws_subnet.public-1.id
+  count          = length(var.public_subnet_cidr)
+  # subnet_id      = aws_subnet.public-1.id
+  subnet_id      = aws_subnet.public[count.index].id
   route_table_id = aws_route_table.public.id
 }
 
-resource "aws_route_table_association" "public-rt-2" {
-  subnet_id      = aws_subnet.public-2.id
-  route_table_id = aws_route_table.public.id
-}
+# resource "aws_route_table_association" "public-rt-2" {
+#   subnet_id      = aws_subnet.public-2.id
+#   route_table_id = aws_route_table.public.id
+# }
 
-resource "aws_subnet" "private-1" {
+resource "aws_subnet" "private" {
+  count             = length(var.private_subnet_cidr)
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_subnet_cidr_1
-  availability_zone = var.az1
+  # cidr_block        = var.private_subnet_cidr_1
+  # availability_zone = var.az1
+  cidr_block        = var.private_subnet_cidr[count.index]
+  availability_zone = var.az[count.index]
 
   tags = {
-    Name = "${var.project_name}-private-subnet-1"
+    Name = "${var.project_name}-private-subnet-${count.index + 1}"
   }
 }
 
-resource "aws_subnet" "private-2" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_subnet_cidr_2
-  availability_zone = var.az2
+# resource "aws_subnet" "private-2" {
+#   vpc_id            = aws_vpc.main.id
+#   cidr_block        = var.private_subnet_cidr_2
+#   availability_zone = var.az2
 
-  tags = {
-    Name = "${var.project_name}-private-subnet-2"
-  }
-}
+#   tags = {
+#     Name = "${var.project_name}-private-subnet-2"
+#   }
+# }
 
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
@@ -88,11 +96,13 @@ resource "aws_route_table" "private" {
 }
 
 resource "aws_route_table_association" "private-rt-1" {
-  subnet_id      = aws_subnet.private-1.id
+  count          = length(var.public_subnet_cidr)
+  subnet_id      = aws_subnet.private[count.index].id
+  # subnet_id      = aws_subnet.private-1.id
   route_table_id = aws_route_table.private.id
 }
 
-resource "aws_route_table_association" "private-rt-2" {
-  subnet_id      = aws_subnet.private-2.id
-  route_table_id = aws_route_table.private.id
-}
+# resource "aws_route_table_association" "private-rt-2" {
+#   subnet_id      = aws_subnet.private-2.id
+#   route_table_id = aws_route_table.private.id
+# }

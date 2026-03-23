@@ -9,9 +9,6 @@ module "vpc" {
   private_subnet_cidr_2 = local.private_subnet_cidr_2
   az1                   = local.az1
   az2                   = local.az2
-  public_subnet_cidr    = local.public_subnet_cidr
-  az                    = local.az
-  private_subnet_cidr   = local.private_subnet_cidr
 }
 
 module "security" {

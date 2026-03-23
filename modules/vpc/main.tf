@@ -65,7 +65,7 @@ resource "aws_subnet" "private-1" {
   availability_zone = var.az1
 
   tags = {
-    Name = "${var.project_name}-private-subnet-2"
+    Name = "${var.project_name}-private-subnet-1"
   }
 }
 
